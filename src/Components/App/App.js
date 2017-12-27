@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import BookShelf from '../BookShelf/BookShelf'
 import SearchList from '../SearchList/SearchList'
 import * as BooksAPI from '../../util/BooksAPI'
@@ -12,21 +11,26 @@ class App extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            currentList : [],
-            wantToList : [],
-            readList : [],
-            searchList :[],
-            searchTerm : '',
+            displayList:[],
+            searchList:[],
+            searchTerm: '',
         }
-        this.changeBookShelf = this.changeBookShelf.bind(this);
+        this.changeShelves = this.changeShelves.bind(this);
         this.searchBook = this.searchBook.bind(this);
     }
 
 
-    // 이게 무슨 의미일까나
-    changeBookShelf(book, shelf) {
+    componentWillMount() {
+        BooksAPI.getAll().then((books) => {
+            this.setState({ displayList : books });
+        });
+    }
+
+    changeShelves(book, shelf) {
         BooksAPI.update(book, shelf).then(() => {
-            BooksAPI.getAll().then(books => book.shelf = books.find(b => b.id === book.id).shelf);
+            BooksAPI.getAll().then((books) => {
+                this.setState({ displayList : books });
+            });
         });
     }
 
@@ -48,15 +52,20 @@ class App extends React.Component {
 
           {/*main page*/}
           <Route exact path="/" render={()=>(
-             <BookShelf/>
+             <BookShelf
+                 onUpdate={this.changeShelves}
+                 books={this.state.displayList}
+             />
           )}/>
 
           {/*search page*/}
           <Route path='/search' render={()=>(
               <div>
-                 <SearchList onSearch={this.searchBook}
-                             searchTerm={this.state.searchTerm}
-                             searchList={this.state.searchList}/>
+                 <SearchList
+                     onSearch={this.searchBook}
+                     searchTerm={this.state.searchTerm}
+                     searchList={this.state.searchList}
+                 />
               </div>
           )}/>
 
