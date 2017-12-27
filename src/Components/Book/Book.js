@@ -28,7 +28,7 @@ class Book extends Component {
                     <div className="book-cover" style={this.state.image}></div>
                     <div className="book-shelf-changer">
                         <select value={ shelf }
-                                onChange={ (e) => this.props.onUpdate(e,e.target.value)}>
+                                onChange={ (e) => this.props.onUpdate(book,e.target.value)}>
                             <option value="none" disabled>Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>

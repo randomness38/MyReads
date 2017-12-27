@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import BookList from "../BookList/BookList";
 import {Link} from 'react-router-dom'
 class BookShelf extends Component {
-    state = {
-        books:[],
-    }
+
 
     render(){
         return (
@@ -24,19 +22,19 @@ class BookShelf extends Component {
                     <BookList
                         books={ this.props.books.filter(book => book.shelf === "currentlyReading") }
                         title='Currently Reading'
-                        onUpdate={this.props.changeShelves}
+                        onUpdate={this.props.onUpdate}
                     />
 
                     <BookList
                         books={ this.props.books.filter(book => book.shelf === "wantToRead") }
                         title='WantToRead'
-                        onUpdate={this.props.changeShelves}
+                        onUpdate={this.props.onUpdate}
                     />
 
                     <BookList
                         books={ this.props.books.filter(book => book.shelf === "read") }
                         title='Read'
-                        onUpdate={this.props.changeShelves}
+                        onUpdate={this.props.onUpdate}
                     />
 
 

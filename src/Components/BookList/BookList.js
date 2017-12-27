@@ -13,7 +13,7 @@ class BookList extends Component {
                         <Book
                             book={book}
                             key={book.id}
-                            onUpdate={this.props.changeShelves}
+                            onUpdate={this.props.onUpdate}
                         />
                     ))
                     }
