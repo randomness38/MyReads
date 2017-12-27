@@ -1,17 +1,19 @@
 import React , { Component } from 'react'
-import 'BookList.css'
+import Book from '../Book/Book'
+
 
 class BookList extends Component {
-    constructor(props){
-        super(props);
-        this.state = {
-
-        }
-    }
-
     render() {
         return(
-<h2></h2>
+                <div className="books-grid">
+                    {this.props.books.map( book => (
+                        <Book
+                            book={book}
+                            key={book.id}
+                        />
+                    ))
+                    }
+                </div>
         )
     }
 }

@@ -1,22 +1,44 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import { Link } from 'react-router-dom'
-// import * as BooksAPI from './BooksAPI'
-import './App.css'
-import CurrentlyList from '../CurrentlyList/CurrentlyList'
-import WantToList from '../WantToLIst/WantToList'
-import ReadList from '../ReadList/ReadList'
+import BookShelf from '../BookShelf/BookShelf'
 import SearchList from '../SearchList/SearchList'
+import * as BooksAPI from '../../util/BooksAPI'
 
-class BooksApp extends React.Component {
-  state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-  }
+import './App.css'
+
+
+class App extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            currentList : [],
+            wantToList : [],
+            readList : [],
+            searchList :[],
+            searchTerm : '',
+        }
+        this.changeBookShelf = this.changeBookShelf.bind(this);
+        this.searchBook = this.searchBook.bind(this);
+    }
+
+
+    // 이게 무슨 의미일까나
+    changeBookShelf(book, shelf) {
+        BooksAPI.update(book, shelf).then(() => {
+            BooksAPI.getAll().then(books => book.shelf = books.find(b => b.id === book.id).shelf);
+        });
+    }
+
+    searchBook(term) {
+        BooksAPI.search(term).then(books => {
+            this.setState({
+                searchList : books
+            })
+        })
+
+    }
+
 
   render() {
     return (
@@ -26,29 +48,15 @@ class BooksApp extends React.Component {
 
           {/*main page*/}
           <Route exact path="/" render={()=>(
-              <div className="list-books-content">
-                  <div className="open-search">
-                      <Link to='/search'>Add a book</Link>
-                  </div>
-
-                  <div className="list-books">
-                      <div className="list-books-title">
-                          <h1>MyReads</h1>
-                      </div>
-                  </div>
-                  <div>
-                      {/*여기부터 BookList - Book 이라고!*/}
-                      <CurrentlyList />
-                      <WantToList />
-                      <ReadList />
-                  </div>
-              </div>
+             <BookShelf/>
           )}/>
 
           {/*search page*/}
           <Route path='/search' render={()=>(
               <div>
-                 <SearchList />
+                 <SearchList onSearch={this.searchBook}
+                             searchTerm={this.state.searchTerm}
+                             searchList={this.state.searchList}/>
               </div>
           )}/>
 
@@ -58,4 +66,4 @@ class BooksApp extends React.Component {
   }
 }
 
-export default BooksApp
+export default App
