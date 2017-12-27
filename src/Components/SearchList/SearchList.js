@@ -1,6 +1,6 @@
 import React , { Component } from 'react'
 import { Link } from 'react-router-dom'
-import Bookshelf from './Bookshelf';
+import BookList from "../BookList/BookList";
 
 class SearchList extends Component {
     constructor(props){
@@ -49,7 +49,7 @@ class SearchList extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <Bookshelf books={this.props.searchList}/>
+                    <BookList books={this.props.searchList}/>
                 </div>
             </div>
             </div>
