@@ -49,7 +49,8 @@ class SearchList extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <BookList books={this.props.searchList}/>
+                    <BookList books={this.props.searchList}
+                              onUpdate={this.props.onUpdate} />
                 </div>
             </div>
             </div>

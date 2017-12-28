@@ -63,6 +63,7 @@ class App extends React.Component {
               <div>
                  <SearchList
                      onSearch={this.searchBook}
+                     onUpdate={this.changeShelves}
                      searchTerm={this.state.searchTerm}
                      searchList={this.state.searchList}
                  />
