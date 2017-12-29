@@ -11,13 +11,14 @@ class SearchList extends Component {
             displayBooks:[],
         }
         // this.handleTermChange = this.handleTermChange.bind(this);
-        this.updateQuery = this.updateQuery.bind(this);
+        this.searchQuery = this.searchQuery.bind(this);
         // this.handleKeyPress = this.handleKeyPress.bind(this);
-        this.search = this.search.bind(this);
+        // this.search = this.search.bind(this);
     }
 
-    updateQuery = (query) => {
+    searchQuery = (query) => {
         this.setState({query : query.trim() });
+        this.props.onSearch(this.state.query)
 
         let showingBooks
         if (this.state.query){
@@ -32,10 +33,10 @@ class SearchList extends Component {
 
     }
 
-    search() {
-        this.props.onSearch(this.state.query)
-
-    }
+    // search() {
+    //     this.props.onSearch(this.state.query)
+    //
+    // }
 
     //
     // handleTermChange(event) {
@@ -63,10 +64,9 @@ class SearchList extends Component {
                                placeholder="Search by title or author"
                                // onKeyPress={this.handleKeyPress}
                                value={this.state.query}
-                               onChange={(event) => this.updateQuery(event.target.value)}
+                               onChange={(event) => this.searchQuery(event.target.value)}
                                // defaultValue={this.props.searchTerm}
                         />
-                        {JSON.stringify(this.state)}
                     </div>
                 </div>
 
