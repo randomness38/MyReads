@@ -1,9 +1,10 @@
-import React , { Component } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Book from '../Book/Book'
 
 
-class BookList extends Component {
-    render() {
+class BookList extends Component{
+render(){
         return(
             <div className="bookshelf">
                 <h2 className="bookshelf-title">{this.props.title}</h2>
@@ -21,7 +22,14 @@ class BookList extends Component {
                 </div>
             </div>
         )
-    }
+
+
 }
+}
+BookList.propTypes = {
+    books: PropTypes.array.isRequired,
+    onUpdate: PropTypes.func.isRequired
+}
+
 
 export default BookList;

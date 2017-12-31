@@ -12,8 +12,6 @@ class App extends React.Component {
         super(props);
         this.state = {
             displayList:[],
-            // searchList:[],
-            // searchTerm: '',
         }
         this.changeShelves = this.changeShelves.bind(this);
     }
@@ -33,16 +31,6 @@ class App extends React.Component {
         });
     }
 
-    // searchBook(term) {
-    //     BooksAPI.search(term).then(books => {
-    //         this.setState({
-    //             searchList : books
-    //         })
-    //     })
-    //
-    // }
-
-
   render() {
     return (
 
@@ -61,10 +49,7 @@ class App extends React.Component {
           <Route path='/search' render={()=>(
               <div>
                  <SearchList
-                     // onSearch={this.searchBook}
                      onUpdate={this.changeShelves}
-                     // searchTerm={this.state.searchTerm}
-                     // searchList={this.state.searchList}
                  />
               </div>
           )}/>

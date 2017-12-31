@@ -1,7 +1,9 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-import BookList from "../BookList/BookList";
+import PropTypes from 'prop-types'
+import BookList from "../BookList/BookList"
 import * as BooksAPI from '../../util/BooksAPI'
+import { Debounce } from 'react-throttle'
 
 class SearchList extends Component {
     constructor(props) {
@@ -11,10 +13,8 @@ class SearchList extends Component {
             searchBooks: [],
         }
 
-        // this.handleTermChange = this.handleTermChange.bind(this);
         this.searchQuery = this.searchQuery.bind(this);
-        // this.handleKeyPress = this.handleKeyPress.bind(this);
-        // this.search = this.search.bind(this);
+
     }
 
     searchQuery = (query) => {
@@ -37,6 +37,7 @@ class SearchList extends Component {
         }); // BooksAPI.search
     }
 
+
     render() {
         return (
             <div>
@@ -45,14 +46,13 @@ class SearchList extends Component {
                     <div className="search-books-bar">
                         <Link to="/" className="close-search">Close</Link>
                         <div className="search-books-input-wrapper">
-                            <input id='SearchBar'
-                                   type="text"
-                                   placeholder="Search by title or author"
-                                // onKeyPress={this.handleKeyPress}
-                                   value={this.state.query}
-                                   onChange={(event) => this.searchQuery(event.target.value)}
-                                // defaultValue={this.props.searchTerm}
-                            />
+                            <Debounce time="400" handler="onChange">
+                                {/*value={this.state.query} input 에 이 코드 쓰면 타이핑 안먹힘*/}
+                                <input id='SearchBar'
+                                       type="text"
+                                       placeholder="Search by title or author"
+                                       onChange={(event) => this.searchQuery(event.target.value)}/>
+                            </Debounce>
                         </div>
                     </div>
 
@@ -66,5 +66,8 @@ class SearchList extends Component {
     }
 }
 
+SearchList.propTypes = {
+    onUpdate: PropTypes.func.isRequired
+}
 
 export default SearchList;
