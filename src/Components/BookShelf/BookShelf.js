@@ -1,9 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import BookList from "../BookList/BookList";
 import {Link} from 'react-router-dom'
 
-class BookShelf extends Component {
-    render(){
+function BookShelf (props) {
         return (
             <div className="list-books-content">
                 <div className="open-search">
@@ -18,27 +17,26 @@ class BookShelf extends Component {
                 <div>
 
                     <BookList
-                        books={ this.props.books.filter(book => book.shelf === "currentlyReading") }
+                        books={ props.books.filter(book => book.shelf === "currentlyReading") }
                         title='Currently Reading'
-                        onUpdate={this.props.onUpdate}
+                        onUpdate={props.onUpdate}
                     />
 
                     <BookList
-                        books={ this.props.books.filter(book => book.shelf === "wantToRead") }
+                        books={ props.books.filter(book => book.shelf === "wantToRead") }
                         title='WantToRead'
-                        onUpdate={this.props.onUpdate}
+                        onUpdate={props.onUpdate}
                     />
 
                     <BookList
-                        books={ this.props.books.filter(book => book.shelf === "read") }
+                        books={ props.books.filter(book => book.shelf === "read") }
                         title='Read'
-                        onUpdate={this.props.onUpdate}
+                        onUpdate={props.onUpdate}
                     />
 
                 </div>
             </div>
         )
     }
-}
 
 export default BookShelf
