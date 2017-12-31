@@ -12,15 +12,14 @@ class App extends React.Component {
         super(props);
         this.state = {
             displayList:[],
-            searchList:[],
-            searchTerm: '',
+            // searchList:[],
+            // searchTerm: '',
         }
         this.changeShelves = this.changeShelves.bind(this);
-        this.searchBook = this.searchBook.bind(this);
     }
 
 
-    componentWillMount() {
+    componentDidMount() {
         BooksAPI.getAll().then((books) => {
             this.setState({ displayList : books });
         });
@@ -34,14 +33,14 @@ class App extends React.Component {
         });
     }
 
-    searchBook(term) {
-        BooksAPI.search(term).then(books => {
-            this.setState({
-                searchList : books
-            })
-        })
-
-    }
+    // searchBook(term) {
+    //     BooksAPI.search(term).then(books => {
+    //         this.setState({
+    //             searchList : books
+    //         })
+    //     })
+    //
+    // }
 
 
   render() {
@@ -62,10 +61,11 @@ class App extends React.Component {
           <Route path='/search' render={()=>(
               <div>
                  <SearchList
-                     onSearch={this.searchBook}
+                     // onSearch={this.searchBook}
                      onUpdate={this.changeShelves}
-                     searchTerm={this.state.searchTerm}
-                     searchList={this.state.searchList}
+                     // books={this.state.displayList}
+                     // searchTerm={this.state.searchTerm}
+                     // searchList={this.state.searchList}
                  />
               </div>
           )}/>
