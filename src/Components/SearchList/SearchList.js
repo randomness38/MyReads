@@ -32,8 +32,8 @@ class SearchList extends Component {
                 })
 
             } // if
-        }).catch(err => {
-            console.error(err);
+        }).catch( () => {
+            this.setState({ searchBooks: [] })
         }); // BooksAPI.search
     }
 
